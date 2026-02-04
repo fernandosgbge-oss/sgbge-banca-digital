@@ -1,26 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-sg-red: #FF350F;
+  --color-sg-blue: #10218B;
+  --color-sg-white: #FCFBFB;
+  --color-sg-gray: #F3F4F6;
+
+  --font-inter: var(--font-inter);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Fallback for using config file if needed, but defining theme here is V4 way. 
+   However, user asked for tailwind.config.ts, so we have it. 
+   V4 should handle the config file automatically if present. 
+*/
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-sg-white);
+  color: var(--color-sg-blue);
+  font-family: var(--font-inter), sans-serif;
 }

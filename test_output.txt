@@ -1,0 +1,13 @@
+
+Running 1 test using 1 worker
+
+Captured Landing Page
+Captured Login Page
+Captured Dashboard
+Captured Investments
+Captured Cards
+Captured Services
+All screenshots captured successfully.
+  ✓  1 e2e\screenshots.spec.ts:5:5 › capture full site screenshots (11.4s)
+
+  1 passed (12.8s)
