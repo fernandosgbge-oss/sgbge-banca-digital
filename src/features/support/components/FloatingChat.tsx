@@ -1,5 +1,7 @@
 'use client';
 
+import { BotIcon, SendIcon, XCircleIcon } from '@/features/ui/icons';
+
 import { useState, useRef, useEffect } from 'react';
 
 type Message = { id: string; text: string; sender: 'user' | 'bot'; isTicket?: boolean };
@@ -66,11 +68,11 @@ export function FloatingChat() {
                 onClick={() => setIsOpen(!isOpen)}
                 className={`
                     w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-2xl transition-all hover:scale-110
-                    ${isOpen ? 'bg-gray-200 rotate-12' : 'bg-gradient-to-br from-sg-blue to-blue-600 text-white'}
+                    ${isOpen ? 'bg-gray-200 rotate-12 text-gray-600' : 'bg-gradient-to-br from-sg-blue to-blue-600 text-white'}
                 `}
                 title="Asistente Virtual"
             >
-                {isOpen ? '✖️' : '🤖'}
+                {isOpen ? <XCircleIcon className="w-6 h-6" /> : <BotIcon className="w-7 h-7" />}
             </button>
 
             {/* Chat Interface */}
@@ -81,14 +83,14 @@ export function FloatingChat() {
             `}>
                 <div className="bg-sg-blue text-white p-4 flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl">🤖</span>
+                        <BotIcon className="w-6 h-6" />
                         <div>
                             <h3 className="font-bold text-sm">Asistente SGBGE</h3>
                             <p className="text-xs opacity-80">Virtual 24/7</p>
                         </div>
                     </div>
                     <button onClick={() => setIsOpen(false)} className="text-white hover:bg-white/20 rounded p-1">
-                        ✖️
+                        <XCircleIcon className="w-5 h-5" />
                     </button>
                 </div>
 
@@ -99,11 +101,13 @@ export function FloatingChat() {
                             className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
                             <div className={`
-                                max-w-[85%] p-3 rounded-2xl text-sm shadow-sm
+                                max-w-[85%] p-3 rounded-2xl text-sm shadow-sm flex gap-2
                                 ${msg.sender === 'user'
                                     ? 'bg-blue-600 text-white rounded-tr-none'
                                     : 'bg-white text-gray-800 border border-gray-200 rounded-tl-none'}
                             `}>
+                                {msg.sender === 'bot' && <BotIcon className="w-4 h-4 flex-shrink-0 mt-0.5" />}
+                                {msg.sender === 'user' && <span className="hidden"></span>}
                                 {msg.text}
                             </div>
                         </div>
@@ -122,7 +126,7 @@ export function FloatingChat() {
                         disabled={!input.trim()}
                         className="bg-sg-blue text-white p-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
                     >
-                        ➤
+                        <SendIcon className="w-4 h-4" />
                     </button>
                 </form>
             </div>

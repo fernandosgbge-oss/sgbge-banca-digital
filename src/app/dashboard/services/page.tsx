@@ -7,6 +7,7 @@ import { CurrencyConverter } from '@/features/services/components/CurrencyConver
 import { TransferForm } from '@/features/services/components/TransferForm';
 import { SubscriptionList } from '@/features/services/components/SubscriptionList';
 import { NationalPayments } from '@/features/services/components/NationalPayments';
+import { GlobeIcon, MapPinIcon, CalendarIcon } from '@/features/ui/icons';
 
 export default function ServicesPage() {
     const [activeTab, setActiveTab] = useState<'transfers' | 'subscriptions' | 'national'>('transfers');
@@ -29,7 +30,7 @@ export default function ServicesPage() {
                             : 'bg-gray-50 md:bg-transparent md:border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100 md:hover:bg-transparent'
                             }`}
                     >
-                        <span className="text-lg">🌍</span>
+                        <GlobeIcon className="w-5 h-5 flex-shrink-0" />
                         {t('services.transfersTab')}
                     </button>
                     <button
@@ -39,7 +40,7 @@ export default function ServicesPage() {
                             : 'bg-gray-50 md:bg-transparent md:border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100 md:hover:bg-transparent'
                             }`}
                     >
-                        <span className="text-lg">🇬🇶</span>
+                        <MapPinIcon className="w-5 h-5 flex-shrink-0" />
                         {t('services.nationalTab')}
                     </button>
                     <button
@@ -49,7 +50,7 @@ export default function ServicesPage() {
                             : 'bg-gray-50 md:bg-transparent md:border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100 md:hover:bg-transparent'
                             }`}
                     >
-                        <span className="text-lg">📅</span>
+                        <CalendarIcon className="w-5 h-5 flex-shrink-0" />
                         {t('services.subscriptionsTab')}
                     </button>
                 </div>

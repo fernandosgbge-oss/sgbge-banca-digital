@@ -6,6 +6,7 @@ import { useI18n } from '@/features/i18n/I18nProvider';
 
 import { useAuthStore } from '@/features/auth/store/auth.store';
 import { createNotification } from '@/lib/notifications/service';
+import { LightbulbIcon, TvIcon, SmartphoneIcon } from '@/features/ui/icons';
 
 export function NationalPayments() {
     const { user } = useAuthStore();
@@ -51,24 +52,33 @@ export function NationalPayments() {
             <div className="flex border-b border-gray-100">
                 <button
                     onClick={() => setActiveTab('segesa')}
-                    className={`flex-1 py-4 text-sm font-semibold transition-colors flex flex-col items-center gap-1 ${activeTab === 'segesa' ? 'bg-blue-50 text-sg-blue border-b-2 border-sg-blue' : 'text-gray-500 hover:bg-gray-50'
+                    className={`flex-1 p-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${activeTab === 'segesa'
+                        ? 'border-yellow-500 bg-yellow-50 text-yellow-700 shadow-sm'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-500 hover:bg-gray-50'
                         }`}
                 >
-                    {t('payments.electricity')}
+                    <LightbulbIcon className="w-8 h-8" />
+                    <span className="font-semibold text-sm">SEGESA</span>
                 </button>
                 <button
                     onClick={() => setActiveTab('canalsol')}
-                    className={`flex-1 py-4 text-sm font-semibold transition-colors flex flex-col items-center gap-1 ${activeTab === 'canalsol' ? 'bg-blue-50 text-sg-blue border-b-2 border-sg-blue' : 'text-gray-500 hover:bg-gray-50'
+                    className={`flex-1 p-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${activeTab === 'canalsol'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-500 hover:bg-gray-50'
                         }`}
                 >
-                    {t('payments.tv')}
+                    <TvIcon className="w-8 h-8" />
+                    <span className="font-semibold text-sm">Canal Sol</span>
                 </button>
                 <button
                     onClick={() => setActiveTab('mobile')}
-                    className={`flex-1 py-4 text-sm font-semibold transition-colors flex flex-col items-center gap-1 ${activeTab === 'mobile' ? 'bg-blue-50 text-sg-blue border-b-2 border-sg-blue' : 'text-gray-500 hover:bg-gray-50'
+                    className={`flex-1 p-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${activeTab === 'mobile'
+                        ? 'border-green-500 bg-green-50 text-green-700 shadow-sm'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-500 hover:bg-gray-50'
                         }`}
                 >
-                    {t('payments.mobile')}
+                    <SmartphoneIcon className="w-8 h-8" />
+                    <span className="font-semibold text-sm">Recarga</span>
                 </button>
             </div>
 

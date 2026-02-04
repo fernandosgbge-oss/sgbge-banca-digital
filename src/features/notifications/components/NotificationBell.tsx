@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { es } from 'date-fns/locale';
 
+import { BellIcon } from '@/features/ui/icons';
+
 export function NotificationBell() {
     const { user } = useAuth();
     const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -18,9 +20,9 @@ export function NotificationBell() {
     useEffect(() => {
         if (!user) return;
 
-        const unsubscribe = subscribeToNotifications(user.uid, (data) => {
-            setNotifications(data);
-            setUnreadCount(data.filter(n => !n.readAt).length);
+        const unsubscribe = subscribeToNotifications(user.uid, (newNotifications) => {
+            setNotifications(newNotifications);
+            setUnreadCount(newNotifications.filter(n => !n.readAt).length);
         });
 
         return () => unsubscribe();
@@ -36,13 +38,17 @@ export function NotificationBell() {
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, [isOpen]);
 
-    const handleNotificationClick = async (notif: Notification) => {
-        if (!notif.readAt) {
-            await markAsRead(notif.id);
+    const handleNotificationClick = async (notification: Notification) => {
+        if (!notification.readAt && user) {
+            await markAsRead(notification.id);
         }
+        // Optional: Navigate to detail or perform action
     };
 
     return (
@@ -52,7 +58,7 @@ export function NotificationBell() {
                 className="relative p-2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
                 aria-label="Notifications"
             >
-                <span className="text-2xl">🔔</span>
+                <BellIcon className="w-6 h-6" />
                 {unreadCount > 0 && (
                     <span className="absolute top-1 right-1 h-5 w-5 flex items-center justify-center bg-red-500 text-white text-[10px] font-bold rounded-full animate-bounce">
                         {unreadCount > 9 ? '9+' : unreadCount}
@@ -78,7 +84,7 @@ export function NotificationBell() {
                         <div className="max-h-96 overflow-y-auto">
                             {notifications.length === 0 ? (
                                 <div className="p-8 text-center text-gray-500">
-                                    <p className="text-4xl mb-2">🔕</p>
+                                    <BellIcon className="w-10 h-10 mx-auto mb-2 text-gray-400" />
                                     <p className="text-sm">No tienes notificaciones nuevas</p>
                                 </div>
                             ) : (
@@ -101,7 +107,7 @@ export function NotificationBell() {
                                                             notification.type === 'manager_message' ? 'Mensaje' : 'Info'}
                                                     </span>
                                                     <span className="text-[10px] text-gray-400">
-                                                        {formatDistanceToNow(notification.createdAt, { addSuffix: true, locale: es })}
+                                                        {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true, locale: es })}
                                                     </span>
                                                 </div>
                                                 <h4 className={`text-sm ${!notification.readAt ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>

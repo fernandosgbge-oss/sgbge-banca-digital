@@ -149,6 +149,7 @@ const Sparkline = ({ data, color }: { data: number[], color: string }) => {
 
 import { useAuthStore } from '@/features/auth/store/auth.store';
 import { createNotification } from '@/lib/notifications/service';
+import { BriefcaseIcon, TrendingUpIcon, InfoIcon } from '@/features/ui/icons';
 
 // ... (existing helper functions)
 
