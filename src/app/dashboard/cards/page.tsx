@@ -81,12 +81,12 @@ export default function CardsPage() {
                 <div className="space-y-6">
                     <h2 className="text-lg font-bold text-gray-800">Mis Tarjetas Activas</h2>
                     {/* Cards Grid Layout */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-8">
                         {cards.map(card => (
                             <div
                                 key={card.id}
                                 onClick={() => setSelectedCardId(card.id)}
-                                className={`cursor-pointer transition-all hover:scale-[1.02] ${selectedCard.id === card.id ? 'ring-2 ring-offset-2 ring-sg-blue rounded-xl shadow-lg' : 'opacity-90 hover:opacity-100'}`}
+                                className={`cursor-pointer transition-all hover:scale-[1.02] ${selectedCard.id === card.id ? 'ring-2 ring-offset-4 ring-sg-blue rounded-2xl shadow-lg' : 'opacity-90 hover:opacity-100'}`}
                             >
                                 <CreditCard card={card} />
                             </div>
@@ -193,9 +193,20 @@ export default function CardsPage() {
                     <div>
                         <h2 className="text-lg font-bold text-gray-800 mb-4">Solicitar Nueva Tarjeta</h2>
                         <div className="space-y-4">
-                            {/* Standard Card */}
+                            {/* Classic Card */}
                             <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex gap-4">
-                                <div className="w-16 h-10 rounded bg-gray-800 shadow-sm flex-shrink-0"></div>
+                                <div className="w-24 h-16 rounded-lg bg-gradient-to-br from-sg-red via-red-600 to-red-800 shadow-md flex-shrink-0 relative overflow-hidden p-2 flex flex-col justify-between">
+                                    <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+                                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full blur-2xl"></div>
+                                    <div className="relative z-10">
+                                        <div className="text-[6px] text-white/80 font-mono tracking-wider">CLASSIC</div>
+                                        <div className="text-[8px] text-white font-bold">SGBGE</div>
+                                    </div>
+                                    <div className="relative z-10">
+                                        <div className="text-[6px] text-white/70 font-mono">**** ****</div>
+                                        <div className="w-4 h-3 bg-white/90 rounded-sm mt-0.5"></div>
+                                    </div>
+                                </div>
                                 <div className="flex-1">
                                     <h3 className="font-bold text-gray-900">SGBGE Clásica</h3>
                                     <p className="text-xs text-gray-500 mb-2">La tarjeta esencial para tu día a día.</p>
@@ -206,7 +217,7 @@ export default function CardsPage() {
                                     <button
                                         onClick={() => handleRequestCard('Classic')}
                                         disabled={requestLoading}
-                                        className="text-xs bg-gray-900 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-gray-700 disabled:opacity-50"
+                                        className="text-xs bg-sg-red text-white px-3 py-1.5 rounded-lg font-medium hover:bg-red-700 disabled:opacity-50"
                                     >
                                         Solicitar
                                     </button>
@@ -216,7 +227,18 @@ export default function CardsPage() {
                             {/* Gold Card */}
                             <div className="bg-white p-4 rounded-xl border border-yellow-100 shadow-sm hover:shadow-md transition-all flex gap-4 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-bl-full"></div>
-                                <div className="w-16 h-10 rounded bg-gradient-to-r from-yellow-600 to-yellow-400 shadow-sm flex-shrink-0"></div>
+                                <div className="w-24 h-16 rounded-lg bg-gradient-to-br from-yellow-300 via-yellow-500 to-yellow-600 shadow-md flex-shrink-0 relative overflow-hidden p-2 flex flex-col justify-between">
+                                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+                                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full blur-2xl"></div>
+                                    <div className="relative z-10">
+                                        <div className="text-[6px] text-white/80 font-mono tracking-wider">GOLD</div>
+                                        <div className="text-[8px] text-white font-bold">SGBGE</div>
+                                    </div>
+                                    <div className="relative z-10">
+                                        <div className="text-[6px] text-white/70 font-mono">**** ****</div>
+                                        <div className="w-4 h-3 bg-white/90 rounded-sm mt-0.5"></div>
+                                    </div>
+                                </div>
                                 <div className="flex-1 z-10">
                                     <h3 className="font-bold text-gray-900">SGBGE Gold</h3>
                                     <p className="text-xs text-gray-500 mb-2">Beneficios exclusivos y seguro de viaje.</p>
@@ -236,7 +258,18 @@ export default function CardsPage() {
 
                             {/* Platinum Card */}
                             <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex gap-4">
-                                <div className="w-16 h-10 rounded bg-gradient-to-r from-slate-400 to-slate-200 shadow-sm flex-shrink-0"></div>
+                                <div className="w-24 h-16 rounded-lg bg-gradient-to-br from-slate-700 via-slate-900 to-black shadow-md flex-shrink-0 relative overflow-hidden p-2 flex flex-col justify-between">
+                                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+                                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full blur-2xl"></div>
+                                    <div className="relative z-10">
+                                        <div className="text-[6px] text-white/80 font-mono tracking-wider">PLATINUM</div>
+                                        <div className="text-[8px] text-white font-bold">SGBGE</div>
+                                    </div>
+                                    <div className="relative z-10">
+                                        <div className="text-[6px] text-white/70 font-mono">**** ****</div>
+                                        <div className="w-4 h-3 bg-white/90 rounded-sm mt-0.5"></div>
+                                    </div>
+                                </div>
                                 <div className="flex-1">
                                     <h3 className="font-bold text-gray-900">SGBGE Platinum</h3>
                                     <p className="text-xs text-gray-500 mb-2">Máxima distinción y servicio concierge.</p>
@@ -247,7 +280,7 @@ export default function CardsPage() {
                                     <button
                                         onClick={() => handleRequestCard('Platinum')}
                                         disabled={requestLoading}
-                                        className="text-xs bg-slate-600 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 disabled:opacity-50"
+                                        className="text-xs bg-slate-700 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-800 disabled:opacity-50"
                                     >
                                         Solicitar
                                     </button>
