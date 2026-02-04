@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SGBGE Digital Ecosystem
 
-## Getting Started
+Plataforma de banca digital para Guinea Ecuatorial. Sistema de gestión financiera seguro, rápido y transparente.
 
-First, run the development server:
+## Tecnologías
+
+- **Frontend:** Next.js 16, React 19, TypeScript
+- **Estilos:** Tailwind CSS 4
+- **Backend:** Firebase
+- **Estado:** Zustand, SWR
+- **Formularios:** React Hook Form + Zod
+- **Testing:** Vitest (unitarios), Playwright (e2e)
+- **PWA:** Service Worker con soporte offline
+
+## Funcionalidades
+
+- 🏦 **Cuentas** - Gestión de cuentas bancarias
+- 💳 **Tarjetas** - Administración de tarjetas
+- 💸 **Transferencias** - Envío de dinero nacional e internacional
+- 💰 **Préstamos** - Solicitud y seguimiento de préstamos
+- 📊 **Inversiones** - Gestión de portafolio
+- 🔔 **Notificaciones** - Alertas en tiempo real
+- 🔐 **Seguridad** - Autenticación con WebAuthn/Passkeys
+- 🌍 **i18n** - Soporte multiidioma
+
+## Inicio Rápido
 
 ```bash
+# Instalar dependencias
+npm install
+
+# Servidor de desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build de producción
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts Disponibles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando | Descripción |
+|---------|-------------|
+| `npm run dev` | Inicia servidor de desarrollo |
+| `npm run build` | Genera build de producción |
+| `npm start` | Ejecuta build de producción |
+| `npm run lint` | Ejecuta ESLint |
 
-## Learn More
+## Estructura del Proyecto
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                    # Rutas (App Router)
+│   ├── api/               # API Routes
+│   ├── dashboard/         # Panel principal
+│   ├── accounts/          # Gestión de cuentas
+│   ├── cards/             # Tarjetas
+│   ├── transfers/         # Transferencias
+│   ├── loans/             # Préstamos
+│   └── ...
+├── features/              # Módulos por funcionalidad
+│   ├── auth/             # Autenticación
+│   ├── banking/          # Lógica bancaria
+│   ├── cards/            # Gestión de tarjetas
+│   ├── i18n/             # Internacionalización
+│   ├── pwa/              # Progressive Web App
+│   └── ui/               # Componentes UI
+├── lib/                   # Utilidades y configuración
+│   ├── firebase/         # Configuración Firebase
+│   └── domain/           # Lógica de dominio
+└── types/                 # Definiciones TypeScript
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Tests unitarios con Vitest
+npx vitest
 
-## Deploy on Vercel
+# Tests e2e con Playwright
+npx playwright test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licencia
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 SGBGE Digital. Todos los derechos reservados.
