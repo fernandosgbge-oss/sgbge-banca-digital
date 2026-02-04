@@ -8,7 +8,6 @@ import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { ToastProvider } from '@/features/ui/ToastProvider';
-import { FloatingChat } from '@/features/support/components/FloatingChat';
 import { I18nProvider, LanguageToggle, useI18n } from '@/features/i18n/I18nProvider';
 import { NotificationBell } from '@/features/notifications/components/NotificationBell';
 
@@ -31,7 +30,8 @@ import {
     LockIcon,
     StarIcon,
     UserPlusIcon,
-    UserIcon
+    UserIcon,
+    BotIcon
 } from '@/features/ui/icons';
 
 function MobileMenu({ t }: { t: any }) {
@@ -49,7 +49,7 @@ function MobileMenu({ t }: { t: any }) {
     }, [isOpen]);
 
     return (
-        <div ref={menuRef} className="hidden md:block">
+        <div ref={menuRef} className="hidden">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-sg-blue rounded-full transition-colors"
@@ -176,11 +176,19 @@ function ProfileMenu({ t }: { t: any }) {
 
 function DashboardNavbar() {
     const { t } = useI18n();
+    const router = useRouter();
 
     return (
         <nav className="bg-white text-gray-800 p-4 shadow-sm border-b border-gray-200 sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => router.push('/dashboard/support/chatbot')}
+                        className="w-10 h-10 rounded-full bg-sg-blue hover:bg-blue-700 flex items-center justify-center text-white transition-colors shadow-md"
+                        title="Asistente Virtual"
+                    >
+                        <BotIcon className="w-5 h-5" />
+                    </button>
                     <Link href="/dashboard" className="flex items-center">
                         <img
                             src="/logo.jpeg"
@@ -279,7 +287,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         <MobileBottomNav />
                     </div>
                 </ToastProvider>
-                <FloatingChat />
             </SessionGuard>
         </I18nProvider>
     );

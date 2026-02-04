@@ -115,12 +115,12 @@ export default function CardsPage() {
                                     </div>
                                     <button
                                         onClick={() => toggleFreeze(selectedCard.id)}
-                                        className={`flex-1 p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${selectedCard.isFrozen
+                                        className={`px-3 py-2 rounded-lg border-2 transition-all flex items-center gap-1.5 ${selectedCard.isFrozen
                                             ? 'border-red-500 bg-red-50 text-red-600'
                                             : 'border-gray-200 hover:border-sg-blue hover:bg-blue-50 text-gray-600'
                                             }`}
                                     >
-                                        <SnowflakeIcon className="w-6 h-6" />
+                                        <SnowflakeIcon className="w-4 h-4" />
                                         <span className="text-xs font-semibold">{selectedCard.isFrozen ? t('cards.unfreeze') : t('cards.freeze')}</span>
                                     </button>
                                 </div>
