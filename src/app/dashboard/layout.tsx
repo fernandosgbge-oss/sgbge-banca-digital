@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { SessionGuard } from '@/features/auth/components/SessionGuard';
 import { useAuthStore } from '@/features/auth/store/auth.store';
 import { useAuth } from '@/features/auth/hooks/useAuth';

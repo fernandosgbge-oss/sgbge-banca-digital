@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -12,9 +14,9 @@ import Link from 'next/link';
 
 const loanSchema = z.object({
     purpose: z.string().min(5, "Detalla el objetivo"),
-    amount: z.coerce.number().min(500000, "Mínimo 500.000"),
-    months: z.coerce.number().min(6).max(120),
-    monthlyIncome: z.coerce.number().min(100000, "Ingresos insuficientes"),
+    amount: z.number().min(500000, "Mínimo 500.000"),
+    months: z.number().min(6).max(120),
+    monthlyIncome: z.number().min(100000, "Ingresos insuficientes"),
     employmentStatus: z.string().min(2, "Requerido"),
     observations: z.string().optional()
 });
@@ -33,8 +35,8 @@ export default function LoanApplyPage() {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoanForm>({
         resolver: zodResolver(loanSchema),
         defaultValues: {
-            amount: Number(defaultAmount),
-            months: Number(defaultMonths)
+            amount: defaultAmount ? Number(defaultAmount) : undefined,
+            months: defaultMonths ? Number(defaultMonths) : undefined
         }
     });
 
@@ -87,12 +89,12 @@ export default function LoanApplyPage() {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Monto (FCFA)</label>
-                        <input type="number" {...register('amount')} className="w-full px-4 py-2 border rounded-lg" />
+                        <input type="number" {...register('amount', { valueAsNumber: true })} className="w-full px-4 py-2 border rounded-lg" />
                         {errors.amount && <p className="text-red-500 text-xs">{errors.amount.message}</p>}
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Plazo (Meses)</label>
-                        <input type="number" {...register('months')} className="w-full px-4 py-2 border rounded-lg" />
+                        <input type="number" {...register('months', { valueAsNumber: true })} className="w-full px-4 py-2 border rounded-lg" />
                         {errors.months && <p className="text-red-500 text-xs">{errors.months.message}</p>}
                     </div>
                 </div>
@@ -100,7 +102,7 @@ export default function LoanApplyPage() {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Ingresos Mensuales</label>
-                        <input type="number" {...register('monthlyIncome')} className="w-full px-4 py-2 border rounded-lg" />
+                        <input type="number" {...register('monthlyIncome', { valueAsNumber: true })} className="w-full px-4 py-2 border rounded-lg" />
                         {errors.monthlyIncome && <p className="text-red-500 text-xs">{errors.monthlyIncome.message}</p>}
                     </div>
                     <div>

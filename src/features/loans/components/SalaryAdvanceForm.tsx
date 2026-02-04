@@ -15,9 +15,9 @@ import { useRouter } from 'next/navigation';
 const advanceSchema = z.object({
     company: z.string().min(2, "Empresa requerida"),
     profession: z.string().min(2, "Profesión requerida"),
-    salary: z.coerce.number().min(100000, "Salario mínimo 100.000"),
-    amountRequested: z.coerce.number().min(50000, "Mínimo 50.000"),
-    repaymentMonths: z.coerce.number().int(),
+    salary: z.number().min(100000, "Salario mínimo 100.000"),
+    amountRequested: z.number().min(50000, "Mínimo 50.000"),
+    repaymentMonths: z.number().int(),
     payrollFile: z.any().refine((files) => files?.length == 1, "Adjuntar nómina es obligatorio")
 });
 
@@ -105,7 +105,7 @@ export default function SalaryAdvanceForm() {
             <div className="grid md:grid-cols-2 gap-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Salario Mensual (FCFA)</label>
-                    <input type="number" {...register('salary')} className="w-full px-4 py-2 border rounded-lg" />
+                    <input type="number" {...register('salary', { valueAsNumber: true })} className="w-full px-4 py-2 border rounded-lg" />
                     {errors.salary && <p className="text-red-500 text-xs">{errors.salary.message}</p>}
                 </div>
                 <div>
@@ -119,12 +119,12 @@ export default function SalaryAdvanceForm() {
                 <div className="grid md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Importe a Solicitar</label>
-                        <input type="number" {...register('amountRequested')} className="w-full px-4 py-2 border rounded-lg font-bold text-sg-blue" />
+                        <input type="number" {...register('amountRequested', { valueAsNumber: true })} className="w-full px-4 py-2 border rounded-lg font-bold text-sg-blue" />
                         {errors.amountRequested && <p className="text-red-500 text-xs">{errors.amountRequested.message}</p>}
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Plazo (Meses)</label>
-                        <select {...register('repaymentMonths')} className="w-full px-4 py-2 border rounded-lg">
+                        <select {...register('repaymentMonths', { valueAsNumber: true })} className="w-full px-4 py-2 border rounded-lg">
                             <option value="1">1 Mes</option>
                             <option value="2">2 Meses</option>
                             <option value="3">3 Meses</option>

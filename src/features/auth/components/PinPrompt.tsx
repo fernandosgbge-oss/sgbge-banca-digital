@@ -74,7 +74,7 @@ export function PinPrompt({ isOpen, onClose, onSuccess, title = "Confirmar Opera
                     {pin.map((digit, i) => (
                         <input
                             key={i}
-                            ref={el => inputRefs.current[i] = el}
+                            ref={el => { inputRefs.current[i] = el; }}
                             type="password"
                             inputMode="numeric"
                             maxLength={1}
