@@ -1,7 +1,7 @@
 'use client';
 
 import { BotIcon, SendIcon, XCircleIcon, HomeIcon } from '@/features/ui/icons';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 
@@ -31,6 +31,12 @@ const SUGGESTED_QUESTIONS = [
 
 export function FloatingChat() {
     const router = useRouter();
+    const pathname = usePathname();
+    
+    // Only show on chatbot page
+    if (pathname !== '/dashboard/support/chatbot') {
+        return null;
+    }
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([
@@ -99,7 +105,7 @@ export function FloatingChat() {
     }, [processMessage]);
 
     return (
-        <div className="fixed bottom-20 md:bottom-6 right-4 z-50 flex flex-col items-end">
+        <div className="fixed top-24 right-4 z-40 flex flex-col items-end">
 
             {/* Floating Toggle Button - Robot Icon */}
             <button
