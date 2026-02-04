@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ToastProvider } from '@/features/ui/ToastProvider';
 import { I18nProvider, LanguageToggle, useI18n } from '@/features/i18n/I18nProvider';
 import { NotificationBell } from '@/features/notifications/components/NotificationBell';
+import { FloatingChat } from '@/features/support/components/FloatingChat';
 
 import { useState, useRef, useEffect } from 'react';
 import {
@@ -285,6 +286,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             {children}
                         </main>
                         <MobileBottomNav />
+                        <FloatingChat />
                     </div>
                 </ToastProvider>
             </SessionGuard>
