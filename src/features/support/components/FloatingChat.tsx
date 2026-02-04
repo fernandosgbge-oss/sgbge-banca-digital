@@ -99,7 +99,7 @@ export function FloatingChat() {
     }, [processMessage]);
 
     return (
-        <div className="fixed top-24 right-4 z-40 flex flex-col items-end">
+        <div className="fixed bottom-20 md:bottom-6 right-4 z-50 flex flex-col items-end">
 
             {/* Floating Toggle Button - Robot Icon */}
             <button
