@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Account } from '@/types/banking';
 import Link from 'next/link';
 import { useI18n } from '@/features/i18n/I18nProvider';
+import { CreditCardIcon, WalletIcon, TrendingUpIcon, EyeIcon, EyeOffIcon, ArrowRightLeftIcon, SmartphoneIcon } from '@/features/ui/icons';
 
 interface AccountCardProps {
     account: Account;
@@ -32,19 +33,19 @@ export const AccountCard = ({ account }: AccountCardProps) => {
     const cardConfig = {
         'CORRIENTE': {
             gradient: "from-blue-600 to-blue-900",
-            icon: "💳", // Credit Card / Daily Use
+            Icon: CreditCardIcon,
             labelColor: "text-blue-200",
             buttonHover: "hover:bg-blue-800/30"
         },
         'AHORRO': {
             gradient: "from-emerald-500 to-emerald-900",
-            icon: "🐷", // Savings
+            Icon: WalletIcon,
             labelColor: "text-emerald-200",
             buttonHover: "hover:bg-emerald-800/30"
         },
         'DAT': {
             gradient: "from-purple-600 to-slate-900",
-            icon: "📈", // Investment / Term Deposit
+            Icon: TrendingUpIcon,
             labelColor: "text-purple-200",
             buttonHover: "hover:bg-purple-800/30"
         }
@@ -52,6 +53,7 @@ export const AccountCard = ({ account }: AccountCardProps) => {
 
     // Fallback for unknown types
     const config = cardConfig[account.type as keyof typeof cardConfig] || cardConfig['CORRIENTE'];
+    const IconComponent = config.Icon;
 
     return (
         <div className={`bg-gradient-to-br ${config.gradient} rounded-2xl p-6 text-white shadow-xl relative overflow-hidden transition-transform hover:scale-[1.02] duration-300`}>
@@ -65,7 +67,7 @@ export const AccountCard = ({ account }: AccountCardProps) => {
                         <p className="text-white/80 font-mono mt-1 text-sm tracking-widest">{account.iban}</p>
                     </div>
                     <div className="bg-white/10 p-3 rounded-xl backdrop-blur-md shadow-inner">
-                        <span className="text-2xl filter drop-shadow-lg">{config.icon}</span>
+                        <IconComponent className="w-6 h-6 text-white" />
                     </div>
                 </div>
 
@@ -77,10 +79,10 @@ export const AccountCard = ({ account }: AccountCardProps) => {
                         </h3>
                         <button
                             onClick={() => setShowBalance(!showBalance)}
-                            className={`p-1 ${config.buttonHover} rounded transition-colors`}
+                            className={`p-1.5 ${config.buttonHover} rounded-lg transition-colors`}
                             aria-label="Toggle balance visibility"
                         >
-                            {showBalance ? '👁️' : '🔒'}
+                            {showBalance ? <EyeIcon className="w-5 h-5" /> : <EyeOffIcon className="w-5 h-5" />}
                         </button>
                     </div>
                 </div>
@@ -89,13 +91,13 @@ export const AccountCard = ({ account }: AccountCardProps) => {
                 <div className="flex gap-4 mt-4 border-t border-white/10 pt-4">
                     <Link href="/dashboard/transfers" className="flex flex-col items-center gap-1 group">
                         <div className={`w-10 h-10 rounded-full bg-white/10 flex items-center justify-center ${config.buttonHover} transition-colors border border-white/5`}>
-                            💸
+                            <ArrowRightLeftIcon className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] text-white/90 font-medium">{t('account.transfer')}</span>
                     </Link>
                     <Link href="/dashboard/services" className="flex flex-col items-center gap-1 group">
                         <div className={`w-10 h-10 rounded-full bg-white/10 flex items-center justify-center ${config.buttonHover} transition-colors border border-white/5`}>
-                            📱
+                            <SmartphoneIcon className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] text-white/90 font-medium">{t('account.pay')}</span>
                     </Link>
