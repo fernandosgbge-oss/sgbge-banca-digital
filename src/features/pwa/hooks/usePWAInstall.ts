@@ -5,6 +5,28 @@ export function usePWAInstall() {
     const [isInstalled, setIsInstalled] = useState(false);
 
     useEffect(() => {
+        // Check if already installed
+        const checkIfInstalled = () => {
+            // Check if running in standalone mode (PWA installed)
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                return true;
+            }
+            // Check if running as standalone on iOS
+            if ((window.navigator as any).standalone === true) {
+                return true;
+            }
+            // Check if the app was added to home screen
+            if (document.referrer.includes('android-app://')) {
+                return true;
+            }
+            return false;
+        };
+
+        if (checkIfInstalled()) {
+            setIsInstalled(true);
+            return;
+        }
+
         const handler = (e: Event) => {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
@@ -13,11 +35,6 @@ export function usePWAInstall() {
         };
 
         window.addEventListener('beforeinstallprompt', handler);
-
-        // Check if already in standalone mode
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            setIsInstalled(true);
-        }
 
         return () => {
             window.removeEventListener('beforeinstallprompt', handler);
