@@ -182,13 +182,6 @@ function DashboardNavbar() {
         <nav className="bg-white text-gray-800 p-4 shadow-sm border-b border-gray-200 sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => router.push('/dashboard/support/chatbot')}
-                        className="w-10 h-10 rounded-full bg-sg-blue hover:bg-blue-700 flex items-center justify-center text-white transition-colors shadow-md"
-                        title="Asistente Virtual"
-                    >
-                        <BotIcon className="w-5 h-5" />
-                    </button>
                     <Link href="/dashboard" className="flex items-center">
                         <img
                             src="/logo.jpeg"
@@ -226,6 +219,13 @@ function DashboardNavbar() {
                     <LanguageToggle />
                     <NotificationBell />
                     <ProfileMenu t={t} />
+                    <button
+                        onClick={() => router.push('/dashboard/support/chatbot')}
+                        className="w-10 h-10 rounded-full bg-sg-blue hover:bg-blue-700 flex items-center justify-center text-white transition-colors shadow-md"
+                        title="Asistente Virtual"
+                    >
+                        <BotIcon className="w-5 h-5" />
+                    </button>
                 </div>
             </div>
         </nav>
