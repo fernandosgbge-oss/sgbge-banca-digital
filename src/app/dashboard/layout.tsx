@@ -69,15 +69,95 @@ function MobileMenu({ t }: { t: any }) {
     );
 }
 
-function DashboardNavbar() {
+function ProfileMenu({ t }: { t: any }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const { user } = useAuthStore();
     const { signOut } = useAuth();
-    const { user } = useAuthStore(); // Keep user for display name for now
     const router = useRouter();
-    const { t } = useI18n();
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+        if (isOpen) document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isOpen]);
 
     const handleLogout = async () => {
         await signOut();
+        setIsOpen(false);
     };
+
+    return (
+        <div ref={menuRef} className="relative">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+                title={t('nav.profile')}
+            >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sg-blue to-blue-400 flex items-center justify-center text-white text-sm font-bold">
+                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+                <span className="text-sm text-gray-600 hidden lg:inline">{user?.name}</span>
+            </button>
+
+            {isOpen && (
+                <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="p-4 border-b border-gray-100">
+                        <h3 className="font-bold text-xl text-gray-900">{user?.name || 'Usuario'}</h3>
+                        <p className="text-sm text-gray-500">Perfil</p>
+                    </div>
+                    <div className="py-2">
+                        <button onClick={() => { router.push('/dashboard/profile'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">⚙️</span>
+                            <span className="text-gray-900 font-medium">Configuración</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/security'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">🔒</span>
+                            <span className="text-gray-900 font-medium">Seguridad y privacidad</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/energy-saving'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">⚡</span>
+                            <span className="text-gray-900 font-medium">Tu ahorro energético</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/transfers'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">💳</span>
+                            <span className="text-gray-900 font-medium">Hacer una operación</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/experiences'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">🎯</span>
+                            <span className="text-gray-900 font-medium">Experiencias</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/locations'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">📍</span>
+                            <span className="text-gray-900 font-medium">Oficinas y cajeros</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/invite'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">👥</span>
+                            <span className="text-gray-900 font-medium">Invita a un amigo</span>
+                        </button>
+                        <button onClick={() => { router.push('/dashboard/promotions'); setIsOpen(false); }} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left">
+                            <span className="text-sg-blue text-xl">🏷️</span>
+                            <span className="text-gray-900 font-medium">Mis promociones</span>
+                        </button>
+                        <div className="border-t border-gray-100 mt-2 pt-2">
+                            <button onClick={handleLogout} className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors text-left">
+                                <span className="text-yellow-600 text-xl">👋</span>
+                                <span className="text-yellow-600 font-medium">Salir</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+function DashboardNavbar() {
+    const { t } = useI18n();
 
     return (
         <nav className="bg-white text-gray-800 p-4 shadow-sm border-b border-gray-200 sticky top-0 z-50">
@@ -129,30 +209,8 @@ function DashboardNavbar() {
                         <LanguageToggle />
                     </div>
 
-                    {/* Profile Button */}
-                    <button
-                        className="hidden lg:flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
-                        title={t('nav.profile')}
-                    >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sg-blue to-blue-400 flex items-center justify-center text-white text-sm font-bold">
-                            {user?.name?.charAt(0).toUpperCase() || 'U'}
-                        </div>
-                        <span className="text-sm text-gray-600">{user?.name}</span>
-                    </button>
-
-                    {/* Mobile Profile Icon (Simplified) */}
-                    <div className="lg:hidden w-8 h-8 rounded-full bg-gradient-to-br from-sg-blue to-blue-400 flex items-center justify-center text-white text-sm font-bold">
-                        {user?.name?.charAt(0).toUpperCase() || 'U'}
-                    </div>
-
-                    {/* Logout Button */}
-                    <button
-                        onClick={handleLogout}
-                        className="text-sm bg-gray-100 hover:bg-red-100 px-2 py-1.5 rounded-lg transition-colors text-red-600"
-                        title={t('nav.logout')}
-                    >
-                        👋
-                    </button>
+                    {/* Profile Menu */}
+                    <ProfileMenu t={t} />
                 </div>
             </div>
         </nav>
